@@ -1,1 +1,1 @@
-web:gunicorn app:flaskhttps
+web:gunicorn app:app
