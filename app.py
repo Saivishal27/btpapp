@@ -1,3 +1,21 @@
+# This is a _very simple_ example of a web service that recognizes faces in uploaded images.
+# Upload an image file and it will check if the image contains a picture of Barack Obama.
+# The result is returned as json. For example:
+#
+# $ curl -XPOST -F "file=@obama2.jpg" http://127.0.0.1:5001
+#
+# Returns:
+#
+# {
+#  "face_found_in_image": true,
+#  "is_picture_of_obama": true
+# }
+#
+# This example is based on the Flask file upload example: http://flask.pocoo.org/docs/0.12/patterns/fileuploads/
+
+# NOTE: This example requires flask to be installed! You can install it with pip:
+# $ pip3 install flask
+
 import face_recognition
 from flask import Flask, jsonify, request, redirect
 
@@ -42,7 +60,6 @@ def upload_image():
 
 def detect_faces_in_image(file_stream):
     # Pre-calculated face encoding of Obama generated with face_recognition.face_encodings(img)
-
     known_face_encoding = [-0.09634063,  0.12095481, -0.00436332, -0.07643753,  0.0080383,
                             0.01902981, -0.07184699, -0.09383309,  0.18518871, -0.09588896,
                             0.23951106,  0.0986533 , -0.22114635, -0.1363683 ,  0.04405268,
@@ -93,4 +110,4 @@ def detect_faces_in_image(file_stream):
     return jsonify(result)
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=5001, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)
